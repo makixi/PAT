@@ -1,0 +1,33 @@
+#include<iostream>
+#include<cstdio>
+#include<string.h>
+using namespace std;
+int main() {
+	int n, count = 0;
+	char a[50], b[50];
+	double temp, sum = 0.0;
+	cin >> n;
+	for (int i = 0; i < n; i++) {
+		scanf("%s", a);
+		sscanf(a, "%lf", &temp);
+		sprintf(b, "%.2lf", temp);
+		int flag = 0;
+		for (int j = 0; j < strlen(a); j++) {
+			if (a[j] != b[j])
+				flag = 1;
+		}
+		if (flag || temp < -1000 || temp>1000) {
+			cout << "ERROR: " << a << " is not a legal number" << endl;
+			continue;
+		}
+		else {
+			sum += temp; ++count;
+		}
+	}
+	if (count >=1) {
+		printf("The average of %d numbers is %.2lf", count, sum / count);
+	}
+	else {
+		printf("The average of 0 numbers is Undefined");
+	}
+}
