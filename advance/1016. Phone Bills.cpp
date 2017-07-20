@@ -9,7 +9,7 @@ int EveryCost[25]={0};
 struct call {
 	string name;
 	int month, day, hour, minute;
-	int now;
+	int now;//on-lineΪ1  
 	int alltime;
 };
 
@@ -25,8 +25,9 @@ double billFromZero(call call1, int *rate) {
 int main() {
 	int n;
 	for (int i = 0; i < 24; ++i)
-		{cin >> EveryCost[i];
-		EveryCost[24]+=EveryCost[i]; 
+		{
+			cin >> EveryCost[i];
+			EveryCost[24]+=EveryCost[i]; 
 		} 
 	cin >> n;
 	vector<call> data(n);
