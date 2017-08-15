@@ -1,11 +1,11 @@
-#include <cstdio>
+#include<iostream>
 using namespace std;
 int main() {
-    long long a, b, c, d, e, f;
-    scanf("%lld.%lld.%lld %lld.%lld.%lld", &a, &b, &c, &d, &e, &f);
-    long long num = c + b * 29 + a * 29 * 17 + f + e * 29 + d * 29 * 17;
-    long long g = num / (17 * 29);
-    num = num % (17 * 29);
-    printf("%lld.%lld.%lld", g, num / 29, num % 29);
-    return 0;
+	long long a1, a2, a3, b1, b2, b3;
+	long long whole = 0;
+	scanf("%lld.%lld.%lld", &a1, &a2, &a3);
+	scanf("%lld.%lld.%lld", &b1, &b2, &b3);
+	whole = (a1 + b1) * 17 * 29 + (a2 + b2) * 29 + (a3 + b3);
+	printf("%lld.%lld.%lld\n", whole/29/17,whole/29%17 ,whole%29 );
+	return 0;
 }
