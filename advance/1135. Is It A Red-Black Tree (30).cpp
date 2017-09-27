@@ -47,6 +47,7 @@ node *insert(node *root,int val){
 int main(){
 	int k;cin>>k;
 	while(k--){
+		res=0;
 		int n;cin>>n;
 		node *root=NULL;
 		for(int i=0;i<n;++i){
