@@ -3,7 +3,7 @@
 #include<algorithm>
 using namespace std;
 const int maxn=101;
-bool num[maxn*10];
+bool num[maxn*100];
 int main(){
 	int n;
 	cin>>n;
@@ -16,7 +16,7 @@ int main(){
 			m/=2;
 			if(num[m])break;
 			num[m]=true;
-			cout<<m<<endl;
+			//cout<<m<<endl;
 		}
 	}
 	vector<int> res;
