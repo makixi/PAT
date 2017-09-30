@@ -1,6 +1,5 @@
 #include<iostream>
 using namespace std;
-
 typedef struct result {
 	int success=0;
 	int ping=0;
@@ -49,9 +48,7 @@ void output(res &bing) {
 int main() {
 	int n;
 	cin >> n;
-
-	for (int i = 0; i < n; i++)
-	{
+	for (int i = 0; i < n; i++){
 		char a, b;
 		cin >> a >> b;
 		int a1=change(a);
