@@ -18,12 +18,11 @@ int main() {
 		}
 		znum = znum % 11;
 		if (id[17] != m[znum]||flag==1) 
-		{ err.push_back(id); }
+			 err.push_back(id);  
 	}
 	if (err.size() == 0)cout << "All passed";
 	else {
-		for (int i = 0; i < err.size(); i++)
-		{
+		for (int i = 0; i < err.size(); i++){
 			cout << err[i] ;
 			if (i != err.size() - 1) cout << endl;
 		}

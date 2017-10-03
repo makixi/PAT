@@ -1,9 +1,6 @@
 #include<iostream>
 #include<string>
-
 using namespace std;
-
-
 int main() {
 	string bad,dream;
 	string reality;
@@ -15,12 +12,9 @@ int main() {
 			for (int i = 0; i < bad.size(); i++) {
 				if (bad[i] == '+') flag = 1;
 			if ((dream[j] == bad[i]) || (flag == 1 && isupper(dream[j]))||(toupper(dream[j])==bad[i])) 
-			{
 				dream[j] = ' ';
-			}
 		}
 			if (dream[j] != ' ') cout << dream[j];
 	}
-
 	return 0;
 }

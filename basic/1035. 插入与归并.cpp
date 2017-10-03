@@ -21,10 +21,9 @@ int main() {
 		int flag = 1;
 		while (flag) {
 			flag=0;
-			for (i = 0; i < n; i++) {
+			for (i = 0; i < n; i++) 
 				if (origin[i] != temp[i])
 					flag = 1;
-			}
 			k *= 2;
 			for (i = 0; i < n / k; i++)
 				sort(origin + i*k, origin + (i + 1)*k);

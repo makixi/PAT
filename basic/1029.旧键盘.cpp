@@ -12,9 +12,8 @@ int main() {
 		dream[i]=toupper(dream[i]);
 		reality[j] = toupper(reality[j]);
 		if (dream[i] != reality[j]) {
-			for (int k = 0; k < bad.size(); k++) {
+			for (int k = 0; k < bad.size(); k++) 
 				if (bad[k] == dream[i]) flag = 1;
-			}
 			if(flag==0)bad.push_back(dream[i]);
 			i++;
 		}

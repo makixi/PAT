@@ -1,7 +1,6 @@
 #include<iostream>
 #include<string>
 using namespace std;
-
 int main() {
 	int n,ade=0;
 	cin >> n;
@@ -23,9 +22,8 @@ int main() {
 			}
 		}
 	}
-	if (ade > 0) {
+	if (ade > 0) 
 		cout << ade << " " << youngname << " " << oldname;
-	}
 	else cout << "0";
 	return 0;
 }
