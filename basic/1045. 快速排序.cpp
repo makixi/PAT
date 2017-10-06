@@ -1,17 +1,13 @@
-
 #include<iostream>
 #include<vector>
 #include<string>
 #include<algorithm>
 using namespace std;
-
-
 int main() {
 	int n, temp;
 	vector<int> a, b, result;
 	cin >> n;
-	for (int i = 0; i < n; i++)
-	{
+	for (int i = 0; i < n; i++){
 		cin >> temp;
 		a.push_back(temp);
 	}
@@ -24,11 +20,9 @@ int main() {
 	}
 	int count = result.size();
 	cout << count << endl;
-	for (int i = 0; i < count; i++) {
+	for (int i = 0; i < count; i++) 
 		if (!i)cout << result[i];
 		else cout << " " << result[i];
-	}
 	cout << endl;
 	return 0;
 }
-

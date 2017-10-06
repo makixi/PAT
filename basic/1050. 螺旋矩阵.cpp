@@ -12,8 +12,7 @@ int main() {
 	int N,temp,m,n;
 	vector<int> num;
 	cin >> N;
-	for (int i = 0; i < N; i++)
-	{
+	for (int i = 0; i < N; i++){
 		cin >> temp;
 		num.push_back(temp);
 	}
@@ -22,9 +21,7 @@ int main() {
 	n = m;
 	while (m*n != N) {
 		m++;
-		if (m*n > N) {
-			n--;
-		}
+		if (m*n > N) n--;
 	}
 	int **a;
 	a = (int**)malloc(sizeof(int*)*m);
