@@ -14,12 +14,8 @@ int main() {
 			cin >> temp;
 			if (temp < e)++count;
 		}
-		if (K > D&&count>K/2) {
-			++empty;
-		}
-		else if(count>K/2) {
-			++may;
-		}
+		if (K > D&&count>K/2) ++empty;
+		else if(count>K/2) ++may;
 	}
 	cout << setiosflags(ios::fixed)<<setprecision(1)<<double(may)/double(N)*100 << "% " << double(empty)/double(N)*100<<"%";
 	return 0;
