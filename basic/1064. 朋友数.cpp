@@ -9,7 +9,6 @@ int sum(int num) {
 	}
 	return whole;
 }
-
 int main() {
 	int n;
 	cin >> n;
@@ -23,11 +22,9 @@ int main() {
 	sort(b, b + n);
 	int count = 0;
 	if (n >= 1) ++count;
-	for (int i = 1; i < n; i++)
-		if (b[i] != b[i - 1]) ++count;
+	for (int i = 1; i < n; i++)if (b[i] != b[i - 1]) ++count;
 	cout << count << endl;
 	if (n >= 1)cout << b[0];
-	for (int i = 1; i < n; i++)
-		if (b[i] != b[i - 1]) cout << " " << b[i];
+	for (int i = 1; i < n; i++)if (b[i] != b[i - 1]) cout << " " << b[i];
 	return 0;
 } 

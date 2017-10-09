@@ -10,8 +10,7 @@ int main() {
 	cin >> n;
 	int *a;
 	a = (int *)malloc(sizeof(int)*n);
-	for (int i = 0; i < n; i++)
-		cin >> a[i];
+	for (int i = 0; i < n; i++)cin >> a[i];
 	sort(a, a + n,cmp);
 	int p=0;
 	while(day<=n&&a[p]>p+1){

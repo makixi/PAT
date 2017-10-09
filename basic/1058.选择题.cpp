@@ -3,7 +3,6 @@
 #include<cstdio>
 #include<set>
 using namespace std;
-
 int main() {
 	int N, M;
 	int choose, truenum;
@@ -31,30 +30,17 @@ int main() {
 				ch.insert(c);
 			}
 			scanf(")");
-			if (ch == truechoose[j]) {
-				score += fullsocre[j];
-			}
-			else {
-				++wrongtime[j];
-			}
+			if (ch == truechoose[j]) score += fullsocre[j];
+			else	++wrongtime[j];
 		}
 		cout << score << endl;
 	}
 	int count=0;
-	for(int i=0;i<M;i++){
-		if(wrongtime[i]>count){
-			count=wrongtime[i];
-		}
-	}
-	if(count==0)
-	printf("Too simple");  
+	for(int i=0;i<M;i++)if(wrongtime[i]>count)count=wrongtime[i];
+	if(count==0)printf("Too simple");  
 	else{
 		cout<<count;
-		for(int i=0;i<M;i++){
-			if(wrongtime[i]==count){
-				cout<<" "<<i+1;
-			}
-		}
+		for(int i=0;i<M;i++)if(wrongtime[i]==count)cout<<" "<<i+1;
 	}
 	return 0;
 }
