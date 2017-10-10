@@ -2,7 +2,6 @@
 #include<map>
 #include<string>
 using namespace std;
-
 int main() {
 	string temp;
 	map<string, int> award;

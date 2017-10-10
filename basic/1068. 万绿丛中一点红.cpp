@@ -9,15 +9,13 @@ int main() {
 	int m, n, tol, count = 0, row, col, value;
 	cin >> m >> n >> tol;
 	int **a = (int **)malloc(sizeof(int*)*n);
-	for (int i = 0; i < n; i++)
-		a[i] = (int *)malloc(sizeof(int)*m);
-	for (int i = 0; i < n; i++) {
+	for (int i = 0; i < n; i++)a[i] = (int *)malloc(sizeof(int)*m);
+	for (int i = 0; i < n; i++) 
 		for (int j = 0; j < m; j++) {
 			cin >> a[i][j];
 			cnt[a[i][j]]++;
 		}
-	}
-	for (int i = 0; i < n ; i++) {
+	for (int i = 0; i < n ; i++) 
 		for (int j = 0; j < m ; j++) {
 			int temp = a[i][j], flag = 1;
 			if (cnt[a[i][j]] == 1) {
@@ -34,11 +32,8 @@ int main() {
 				}
 			}
 		}
-	}
 	if (count == 0)cout << "Not Exist";
 	else if (count > 1) cout << "Not Unique";
-	else {
-		cout << "(" << col + 1 << ", " << row + 1 << "): " << value;
-	}
+	else cout << "(" << col + 1 << ", " << row + 1 << "): " << value;
 	return 0;
 }
