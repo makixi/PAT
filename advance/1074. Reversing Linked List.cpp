@@ -11,28 +11,18 @@ int main() {
 		cin >> add[temp] >> next[temp];
 	}
 	int cnt = 0;
-	while (first != -1) {
+	for (;first != -1;first=next[first])
 		list[cnt++] = first;
-		first = next[first];
-	}
+	for (int i = 0; i < cnt; ++i)
+		res[i] = list[i];
+	for (int i = 0; i < (cnt - cnt % k); ++i)
+		res[i] = list[i / k * k + k - 1 - i % k];
 	for (int i = 0; i < cnt; ++i) {
-		if (i < (cnt - cnt % k)) {
-			res[i] = list[i / k * k + k - 1 - i % k];
-		}
-		else {
-			res[i] = list[i];
-		}
-	}
-	for (int i = 0; i < cnt; ++i) {
-		if (i == n - 1) {
-			cout << setw(5) << setfill('0') << res[i];
-			cout << " " << add[res[i]] << " ";
-			cout << "-1";
+		if (i == cnt - 1) {
+			printf("%05d %d -1",res[i],add[res[i]]);
 			break;
 		}
-		cout << setw(5) << setfill('0') << res[i];
-		cout << " " << add[res[i]]<<" ";
-		cout << setw(5) << setfill('0') << res[i+1];
-		cout << endl;
+		printf("%05d %d %05d\n",res[i],add[res[i]],res[i+1]);
 	}
+	return 0;
 }

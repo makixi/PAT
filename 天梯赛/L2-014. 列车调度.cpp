@@ -14,7 +14,6 @@ int main(){
 		if(tmp<*s.rbegin())
 			s.erase(*(s.upper_bound(tmp)));
 		s.insert(tmp);
-		cout<<s.size()-1<<endl;
 	}
 	cout<<s.size()-1;
 	return 0;
