@@ -22,12 +22,11 @@ int main(){
 		if(k!=s.size())flag=false;
 		for(int i=1;i<=n;++i){
 			if(!flag)break;
-			for(int j=i+1;j<=n;++j){
+			for(int j=i+1;j<=n;++j)
 				if(e[i][j]&&color[i]==color[j]){
 					flag=false;
 					break;
 				}
-			}
 		}
 		if(flag)cout<<"Yes"<<endl;
 		else cout<<"No"<<endl;
