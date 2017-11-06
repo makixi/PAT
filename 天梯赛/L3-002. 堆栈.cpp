@@ -27,11 +27,9 @@ void PeekMedian(){
 }
 int main(){
 	int n,a;
-	//string str;
 	char str[15];
 	scanf("%d",&n);
 	while(n--){
-		//cin>>str;
 		scanf("%s",str);
 		if(str[1]=='o'){//pop
 			if(s.empty())printf("Invalid\n");
