@@ -1,24 +1,16 @@
 #include <iostream>
 #include <algorithm>
 using namespace std;
-
 int cmp(int a, int b) {
     return a < b;
 }
-
 int main() {
     int n;
     cin >> n;
     int *a = new int [n];
     int *b = new int [n];
-    
-    for (int i = 0; i < n; i++) {
-        cin >> a[i];
-    }
-    for (int i = 0; i < n; i++) {
-        cin >> b[i];
-    }
-    
+    for (int i = 0; i < n; i++) cin >> a[i];
+    for (int i = 0; i < n; i++)cin >> b[i];
     int i, j;
     for (i = 0; i < n - 1 && b[i] <= b[i + 1]; i++);
     for (j = i + 1; a[j] == b[j] && j < n; j++);
@@ -31,21 +23,13 @@ int main() {
         int flag = 1;
         while(flag) {
             flag = 0;
-            for (i = 0; i < n; i++) {
-                if (a[i] != b[i])
-                    flag = 1;
-            }
+            for (i = 0; i < n; i++) if (a[i] != b[i])flag = 1;
             k = k * 2;
-            for (i = 0; i < n / k; i++)
-                sort(a + i * k, a + (i + 1) * k, cmp);
-            for (i = n / k * k; i < n; i++)
-                sort(a + n / k * k, a + n, cmp);
+            for (i = 0; i < n / k; i++)sort(a + i * k, a + (i + 1) * k, cmp);
+            for (i = n / k * k; i < n; i++)sort(a + n / k * k, a + n, cmp);
         }
-    }
-    
-    for (j = 0; j < n - 1; j++) {
-        cout << a[j] << " ";
-    }
+    }   
+    for (j = 0; j < n - 1; j++) cout << a[j] << " ";
     cout << a[n - 1];
     return 0;
 }

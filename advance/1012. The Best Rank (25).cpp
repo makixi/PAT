@@ -33,12 +33,11 @@ int main() {
 		exist[stu[i].id] = i + 1;
 		stu[i].bestnum = 0;
 		int minn = stu[i].rank[0];
-		for (int j = 1; j <= 3; j++) {
+		for (int j = 1; j <= 3; j++) 
 			if (stu[i].rank[j] < minn) {
 				minn = stu[i].rank[j];
 				stu[i].bestnum = j;
 			}
-		}
 	}
 	char c[] = { 'A','C','M','E' };
 	int id;
@@ -49,9 +48,7 @@ int main() {
 			int best = stu[temp - 1].bestnum;
 			cout << stu[temp - 1].rank[best] << " " << c[best]<<endl;
 		}
-		else {
-			cout << "N/A" << endl;
-		}
+		else  cout << "N/A" << endl;
 	}
 	return 0;
 }

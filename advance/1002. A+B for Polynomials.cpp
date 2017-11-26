@@ -16,19 +16,15 @@ int main() {
 		cin >> l>>num;
 		c[l]+=num;
 	}
-	for (int i = 0; i < 1001; i++) {
-		if (c[i] != 0) {
+	for (int i = 0; i < 1001; i++) 
+		if (c[i] != 0) 
 			 ++count;
-		}
-	}
 	cout << count ;
 	if(count>0) cout<<" ";
-	for (int i = 1001; i >= 0; --i) {
+	for (int i = 1001; i >= 0; --i) 
 		if (c[i] != 0) { 
 			printf("%d %.1f", i, c[i]); --count;
-			if (count >= 1) 
-				cout << " ";
+			if (count >= 1) cout << " ";
 		}
-	}
 	return 0;
 }

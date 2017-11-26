@@ -14,8 +14,7 @@ int main() {
 	while (cnt) {
 		if (v[0] == 0) {
 			while(i<n) {
-				if (v[i] != i)
-				{
+				if (v[i] != i){
 					swap(v[i], v[0]);
 					ans++;
 					break;

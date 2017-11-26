@@ -2,7 +2,6 @@
 #include<algorithm>
 using namespace std;
 int *origin, *now;
-
 void DownAdjust(int low, int high) {
 	int i = 0, j = i * 2+1;
 	while (j <= high) {
@@ -15,13 +14,12 @@ void DownAdjust(int low, int high) {
 	}
 }
 int main() {
-	int n;
+	int n,i,j;
 	cin >> n;
 	origin = new int[n];
 	now = new int[n];
-	for (int i = 0; i < n; ++i) cin >> origin[i];
-	for (int i = 0; i < n; ++i) cin >> now[i];
-	int i, j;
+	for (i = 0; i < n; ++i) cin >> origin[i];
+	for (i = 0; i < n; ++i) cin >> now[i];
 	for (i = 0; i < n - 1 && now[i] <= now[i + 1]; ++i);
 	for (j = i + 1; origin[j] == now[j] && j < n; ++j);
 	if (j == n) {
@@ -35,8 +33,7 @@ int main() {
 		swap(now[0], now[p-1]);
 		DownAdjust(1, p - 2);
 	}
-	for (i = 0; i < n-1; ++i)
-		cout << now[i] << " ";
+	for (i = 0; i < n-1; ++i)cout << now[i] << " ";
 	cout << now[n - 1];
 	return 0;
 }
