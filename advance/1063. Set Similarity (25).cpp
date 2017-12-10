@@ -12,7 +12,8 @@ int main() {
 		set<int> s;
 		cin >> m;
 		while (m--) {
-			cin >> num; s.insert(num);
+			cin >> num; 
+			s.insert(num);
 		}
 		v[i] = s;
 	}
@@ -21,12 +22,9 @@ int main() {
 	while (k--) {
 		cin >> q1 >> q2;
 		int nc = 0, nt = v[q2].size();
-		for (auto it = v[q1].begin(); it != v[q1].end(); ++it) {
-			if (v[q2].find(*it) == v[q2].end())
-				nt++;
-			else
-				nc++;
-		}
+		for (auto it = v[q1].begin(); it != v[q1].end(); ++it) 
+			if (v[q2].find(*it) == v[q2].end()) nt++;
+			else nc++;
 		printf("%.1f%%\n",(double)nc/nt*100);
 	}
 	return 0;

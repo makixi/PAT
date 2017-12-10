@@ -8,7 +8,7 @@ int main() {
 	cin >> m >> n;
 	map<int, int> ma;
 	int half = m*n / 2;
-	for (int i = 0; i < n; ++i) {
+	for (int i = 0; i < n; ++i) 
 		for (int j = 0; j < m; ++j) {
 			int num;
 			cin >> num;
@@ -18,6 +18,5 @@ int main() {
 				return 0;
 			}
 		}
-	}
 	return 0;
 }

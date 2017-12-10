@@ -23,9 +23,8 @@ int main() {
 	for (int i = 1; i <= k; ++i) {
 		sort(course[i].begin(), course[i].end(),cmp);
 		printf("%d %d\n", i, course[i].size());
-		for (int j = 0; j < course[i].size(); ++j) {
+		for (int j = 0; j < course[i].size(); ++j) 
 			printf("%s\n", name[course[i][j]]);
-		}
 	}
 	return 0;
 }
