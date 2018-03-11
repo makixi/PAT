@@ -15,10 +15,11 @@ int main(){
     scanf("%s",str+1);
     int len=strlen(str+1);
     reverse(str+1,str+len+1);
-    for(int i=1;i<=len;i++)dp[i]=(dp[i-1]+((str[i]-'0')*base[i])%mod)%mod;
+    for(int i=1;i<=len;i++)
+		dp[i]=(dp[i-1]+((str[i]-'0')*base[i])%mod)%mod;
     res=0;
-    for(int i=1;i<=len;i++)if(str[i]!='0')res=(res+dp[i])%mod;
+    for(int i=1;i<=len;i++)
+		if(str[i]!='0')res=(res+dp[i])%mod;
     printf("%lld\n",res);
     return 0;
 }
-

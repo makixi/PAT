@@ -2,36 +2,31 @@
 #include<vector>
 #include<algorithm>
 using namespace std;
-const int maxn=10010;
-int used[maxn][maxn];
-int dp[maxn];
-vector<int> v;
-int n;
-bool cmp(int a,int b){
-	return a>b;
-}
+int val[10005];
+bool dp[105];
+bool e[10005][10005];
+bool cmp(int a,int b){return a>b;}
 int main(){
-	int m;
-	scanf("%d%d",&n,&m);
-	v.resize(n+1);
-	for(int i=1;i<=n;++i)scanf("%d",&v[i]);
-	sort(v.begin()+1,v.end(),cmp);
-	for(int i=1;i<=n;++i){
-		for(int j=m;j>=v[i];--j){
-			if(dp[j]<=dp[j-v[i]]+v[i]){
-				dp[j]=dp[j-v[i]]+v[i];
-				used[i][j]=true;
+	ios::sync_with_stdio(false);
+	int n,m;
+	cin>>n>>m;
+	for(int i=1;i<=n;++i)cin>>val[i];
+	dp[0]=1;
+	sort(val+1,val+1+n,cmp);
+	for(int i=1;i<=n;++i)
+		for(int j=m;j>=val[i];--j)
+			if(dp[j-val[i]]){
+				dp[j]=true;
+				e[i][j]=true;
 			}
-		}
-	}
-	if(dp[m]!=m)printf("No Solution");
+	if(!dp[m])cout<<"No Solution";
 	else{
 		vector<int> res;
 		int curr=m,index=n;
 		while(curr>0){
-			if(used[index][curr]){
-				res.push_back(v[index]);
-				curr-=v[index];
+			if(e[index][curr]){
+				res.push_back(val[index]);
+				curr-=val[index];
 			}
 			--index;
 		}
@@ -41,4 +36,4 @@ int main(){
 		}
 	}
 	return 0;
-}
+} 

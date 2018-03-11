@@ -36,8 +36,7 @@ int main(){
 	for(int i=1;i<=n;++i)
 		num[find(inter[i])]++;
 	for(int i=0;i<maxn;++i)
-		if(num[i])
-			++cnt;
+		if(num[i])++cnt;
 	sort(num,num+maxn,greater<int>());
 	cout<<cnt<<endl;
 	for(int i=0;i<cnt;++i){

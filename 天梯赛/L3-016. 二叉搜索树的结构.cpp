@@ -6,19 +6,15 @@ struct node {
 	int val;
 	int level;
 	node *lchild, *rchild;
-	node() {
-		lchild = rchild = NULL;
-	}
+	node() {lchild = rchild = NULL;}
 };
 node* buildTree(node* root, int val) {
 	if (root == NULL) {
 		root = new node();
 		root->val = val;
 	}
-	else if (root->val>val) 
-		root->lchild = buildTree(root->lchild, val);
-	else
-		root->rchild = buildTree(root->rchild, val);
+	else if (root->val>val) root->lchild = buildTree(root->lchild, val);
+	else root->rchild = buildTree(root->rchild, val);
 	return root;
 }
 void findNode(node *root,int a, int b, node *&an, node *&bn) {
@@ -29,12 +25,9 @@ void findNode(node *root,int a, int b, node *&an, node *&bn) {
 		if (tmp->val == a)  an = tmp; 
 		if (tmp->val == b)  bn = tmp; 
 		if (an != NULL&&bn != NULL)return;
-		if (tmp->lchild != NULL) 
-			q.push(tmp->lchild);
-		if (tmp->rchild != NULL) 
-			q.push(tmp->rchild);
+		if (tmp->lchild != NULL) q.push(tmp->lchild);
+		if (tmp->rchild != NULL) q.push(tmp->rchild);
 	}
-	return;
 }
 void bfs(node *root) {
 	queue<node*> q;
@@ -66,10 +59,8 @@ bool findParent(node *root, int a, int b) {
 			else if (tmp->lchild->val != a&&tmp->rchild->val == b)return false;
 			else if (tmp->rchild->val == a&&tmp->lchild->val != b)return false;
 		}
-		if (tmp->lchild != NULL) 
-			q.push(tmp->lchild);
-		if (tmp->rchild != NULL) 
-			q.push(tmp->rchild);
+		if (tmp->lchild != NULL) q.push(tmp->lchild);
+		if (tmp->rchild != NULL) q.push(tmp->rchild);
 	}
 	return false;
 }
@@ -90,49 +81,42 @@ int main() {
 		if (str == "and") {
 			cin >> b >> str >> str;
 			if (str == "siblings") {//"A and B are siblings"
-				if (findParent(root, a, b))
-					printf("Yes\n");
+				if (findParent(root, a, b)) printf("Yes\n");
 				else printf("No\n");
 			}
 			else {//A and B are on the same level
 				cin >> str >> str >> str;
 				node *an = NULL, *bn = NULL;
 				findNode(root, a, b, an, bn);
-				if (an != NULL&&bn != NULL&&an->level == bn->level)
-					printf("Yes\n");
+				if (an != NULL&&bn != NULL&&an->level == bn->level) printf("Yes\n");
 				else printf("No\n");
 			}
 		}
 		else {
 			cin >> str >> str;
 			if (str == "root") {//A is the root
-				if (a == root->val)
-					printf("Yes\n");
-				else
-					printf("No\n");
+				if (a == root->val) printf("Yes\n");
+				else printf("No\n");
 			}
 			else if (str == "parent") {//A is the parent of B
 				cin >> str >> b;
 				node *an = NULL, *bn = NULL;
 				findNode(root, a, b, an, bn);
-				if ((an != NULL&&bn != NULL)&&(an->lchild == bn||an->rchild==bn))
-					printf("Yes\n");
+				if ((an != NULL&&bn != NULL)&&(an->lchild == bn||an->rchild==bn)) printf("Yes\n");
 				else printf("No\n");
 			}
 			else if (str == "left") {//A is the left child of B
 				cin >> str >> str >> b;
 				node *an=NULL, *bn=NULL;
-				findNode(root,a, b, an, bn);
-				if (bn != NULL&&an != NULL&&bn->lchild == an)
-					printf("Yes\n");
+				findNode(root, a, b, an, bn);
+				if (bn != NULL&&an != NULL&&bn->lchild == an) printf("Yes\n");
 				else printf("No\n");
 			}
 			else {//A is the right child of B
 				cin >> str >> str >> b;
 				node *an = NULL, *bn = NULL;
 				findNode(root, a, b, an, bn);
-				if (bn != NULL&&an != NULL&&bn->rchild == an)
-					printf("Yes\n");
+				if (bn != NULL&&an != NULL&&bn->rchild == an) printf("Yes\n");
 				else printf("No\n");
 			}
 		}

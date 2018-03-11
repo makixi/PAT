@@ -1,34 +1,33 @@
-#include <cstdio>
-#include <iostream>
-#include <algorithm>
-#include <vector>
+#include<iostream>
+#include<cstdio>
+#include<vector>
+#include<cmath>
+#include<cstring>
+#include<algorithm>
 using namespace std;
+const int maxn=10000+10;
+int val[maxn],dpu[maxn],dpd[maxn];
 int main(){
-	int n = 0;
-	scanf("%d", &n);
-	vector<int> val(n + 1), up(n + 1, 0), down(n + 1, 0);
-	for (int i = 1; i <= n; i++) scanf("%d", &val[i]);
-	for (int i = 2; i <= n; i++) 
-		for (int j = i - 1; j >= 1; j--) //以i为结尾的最长上升子序列长度 
-			if (val[i] > val[j])up[i] = max(up[i], up[j] + 1);
-	for (int i = n - 1; i >= 1; i--) 
-		for (int j = i + 1; j <= n; j++) //以i为开头的最长下降子序列长度 
-			if (val[i] > val[j])down[i] = max(down[i], down[j] + 1);
-	int maxLen = 0, index = 0, value = 0, diff = 100000;
-	for (int i = 2; i < n; i++) 
-		if (up[i] && down[i]) 
-			if (up[i] + down[i] + 1 > maxLen) {
-				maxLen = up[i] + down[i] + 1;
-				index = i;
-				value = val[i];
-				diff = abs(up[i] - down[i]);
-			}
-			else if (up[i] + down[i] + 1 == maxLen && diff > abs(up[i] - down[i])) {
-				index = i;
-				value = val[i];
-				diff = abs(up[i] - down[i]);
-			}
-	if (maxLen) cout<<maxLen<<" "<<index<<" "<<value;
-	else cout<<"No peak shape";
+	int n;
+	scanf("%d",&n);
+	for(int i=1;i<=n;++i)scanf("%d",&val[i]);
+	fill(dpu+1,dpu+1+n,1);
+	fill(dpd+1,dpd+1+n,1);
+	for(int i=1;i<=n;++i)
+		for(int j=i+1;j<=n;++j)
+			if(val[j]>val[i])
+				dpu[j]=max(dpu[j],dpu[i]+1);
+	for(int i=n;i>=1;--i)
+		for(int j=i-1;j>=1;--j)
+			if(val[j]>val[i])
+				dpd[j]=max(dpd[j],dpd[i]+1);
+	int pos=-1,len=0;
+	for(int i=n;i>=1;--i)
+		if(dpu[i]>1&&dpd[i]>1&&len<dpu[i]+dpd[i]-1){
+			len=dpu[i]+dpd[i]-1;
+			pos=i;
+		}
+	if(pos==-1) cout<<"No peak shape";
+	else cout<<len<<" "<<pos<<" "<<val[pos];
 	return 0;
 }

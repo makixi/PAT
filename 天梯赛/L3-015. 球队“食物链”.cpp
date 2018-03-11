@@ -19,8 +19,7 @@ void dfs(int u,int cnt) {
 	if (cnt >= n)return;
 	bool flag = false;
 	for (int i = 1; i <= n; ++i)
-		if (!vis[i] && v[i][1])
-			flag = true;
+		if (!vis[i] && v[i][1]) flag = true;
 	if (!flag)return;
 	for (int i = 1; i <=n; ++i) 
 		if (!vis[i]&&v[u][i]) {
@@ -37,10 +36,8 @@ int main() {
 	for (int i = 1; i <= n; ++i) {
 		scanf("%s", str + 1);
 		for (int j = 1; j <= n; ++j) {
-			if (str[j] == 'W')
-				v[i][j] = true;
-			if (str[j] == 'L')
-				v[j][i] = true;
+			if (str[j] == 'W') v[i][j] = true;
+			if (str[j] == 'L') v[j][i] = true;
 		}
 	}
 	vis[1] = true;

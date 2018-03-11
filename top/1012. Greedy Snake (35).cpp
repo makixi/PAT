@@ -55,8 +55,7 @@ int main(){
 			if (newAns == res) nNewAns++;
 			else if (newAns < res) { newAns = res; nNewAns = 1; }
 		}
-	if(newAns>=ans)
-	printf("%d %d\n",(n-2)*(n-2)-k-1-newAns,nNewAns) ;
+	if(newAns>=ans)printf("%d %d\n",(n-2)*(n-2)-k-1-newAns,nNewAns) ;
 	else printf("-1\n");
     return 0;
 }

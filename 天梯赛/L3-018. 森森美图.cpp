@@ -41,12 +41,10 @@ double bfs(node st,node des) {
 		node tmp = q.front(); q.pop();
 		vis[tmp.x][tmp.y] = false;
 		for (int i = 0; i < 8; ++i) {
-			int newy = tmp.y + dy[i];
-			int newx = tmp.x + dx[i];
+			int newy = tmp.y + dy[i], newx = tmp.x + dx[i];
 			if (judge(newx,newy,st,des)) {
 				w = matrix[newx][newy];
-				if (dx[i] && dy[i])
-					w += (sqrt(2) - 1)*(matrix[tmp.x][tmp.y] + matrix[newx][newy]);
+				if (dx[i] && dy[i]) w += (sqrt(2) - 1)*(matrix[tmp.x][tmp.y] + matrix[newx][newy]);
 				if (dis[newx][newy] > dis[tmp.x][tmp.y] + w) {//¼ÇÂ¼×î¶Ì¾àÀë
 					dis[newx][newy] = dis[tmp.x][tmp.y] + w;
 					if (!vis[newx][newy]) {
@@ -65,8 +63,7 @@ int main() {
 	node st, des;
 	cin >> n >> m;
 	for (int i = 0; i < n; ++i)
-		for (int j = 0; j < m; ++j)
-			cin >> matrix[i][j];
+		for (int j = 0; j < m; ++j) cin >> matrix[i][j];
 	cin >> st.y >> st.x >> des.y >> des.x;//(st.x,st.y)µ½(des.x,des.y)
 	printf("%.2lf",bfs(st,des)+bfs(des,st)-matrix[st.x][st.y]-matrix[des.x][des.y]);
 	return 0;
