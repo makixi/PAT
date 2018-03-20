@@ -85,7 +85,7 @@ int main() {
 	ll res = 0;
 	for (int i = 0; i<q; ++i) {
 		ll minn = find_min(1, v[i].l, v[i].r - 1);
-		update(1, v[i].l, v[i].r - 1, -minn);
+		if(minn)update(1, v[i].l, v[i].r - 1, -minn);
 		res += minn;
 	}
 	cout << res;
