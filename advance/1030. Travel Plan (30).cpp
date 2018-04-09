@@ -1,83 +1,64 @@
-#include<iostream>
-#include<vector>
-#include<algorithm>
+#include<bits/stdc++.h>
 using namespace std;
-#define MAX 1010
-#define INF 9999999
-
-int n, m, s, d;//city,highways,start,destination
-int dis[MAX][MAX],cost[MAX][MAX];
-int weight[MAX];
-bool vis[MAX];
-vector<int> path, temppath;
-vector<int> pre[MAX];
-int mincost = INF;
-
-void dfs(int v) {
-	if (v == s) {
-		temppath.push_back(v);
-		int tempcost = 0;
-		for (int i = temppath.size() - 1; i > 0; i--)
-		{
-			int id = temppath[i];
-			int nextid = temppath[i - 1];
-			tempcost += cost[id][nextid];
-		}
-		if (tempcost < mincost) {
-			mincost = tempcost;
-			path = temppath;
-		}
-		temppath.pop_back();
+typedef long long ll;
+const int maxn=510;
+const int inf=0x3f3f3f3f;
+int n,m,s,d;
+int e[maxn][maxn],dis[maxn],cost[maxn][maxn],consume[maxn];
+bool vis[maxn];
+vector<int> pre[maxn],res,tmp;
+void dfs(int u){
+	tmp.push_back(u);
+	if(u==s){
+		res=tmp;
+		tmp.pop_back();
 		return;
 	}
-	temppath.push_back(v);
-	for (int i = 0; i < pre[v].size(); ++i)
-		dfs(pre[v][i]);
-	temppath.pop_back();
+	dfs(pre[u][0]);
+	tmp.pop_back();
 }
-
-int main() {
-	fill(dis[0], dis[0] + MAX*MAX, INF);
-	fill(weight, weight + MAX, INF);
-	cin >> n >> m >> s >> d;
-	for (int i = 0; i < m; ++i) {
-		int a, b,c,d;
-		cin >> a >> b>>c>>d;
-		if(dis[a][b]>c)
-		{
-		dis[b][a] = dis[a][b]=c;
-		cost[b][a] = cost[a][b]=d;
+int main(){
+	ios::sync_with_stdio(false);
+	memset(e,inf,sizeof(e));
+	memset(dis,inf,sizeof(dis));
+	memset(cost,inf,sizeof(cost));
+	memset(consume,inf,sizeof(consume));
+	cin>>n>>m>>s>>d;
+	for(int i=0;i<m;++i){
+		int a,b,c,d;
+		cin>>a>>b>>c>>d;
+		e[a][b]=e[b][a]=c;
+		cost[a][b]=cost[b][a]=d;
 	}
-	}
-	pre[s].push_back(s);
-	weight[s] = 0;
-	for (int i = 0; i < n; ++i) {
-		int u = -1, minn = INF;
-		for (int j = 0; j < n; ++j) {
-			if (vis[j] == false && weight[j] < minn) {
-				u = j;
-				minn = weight[j];
+	dis[s]=0;
+	consume[s]=0;
+	for(int i=0;i<n;++i){
+		int minn=inf,u=-1;
+		for(int j=0;j<n;++j)
+			if(!vis[j]&&dis[j]<minn){
+				minn=dis[j];
+				u=j;
 			}
-		}
-		if (u == -1) break;
-		vis[u] = true;
-		for (int v = 0; v < n; ++v) {
-			if (vis[v] == false && dis[u][v] != INF) {
-				if (weight[v] > weight[u] + dis[u][v])
-				{
-					weight[v] = weight[u] + dis[u][v];
-					pre[v].clear();
-					pre[v].push_back(u);
+		if(u==-1)break;
+		vis[u]=true;
+		for(int j=0;j<n;++j)
+			if(!vis[j]&&e[u][j]!=inf)
+				if(dis[j]>dis[u]+e[u][j]){
+					dis[j]=dis[u]+e[u][j];
+					pre[j].clear();
+					pre[j].push_back(u);
+					consume[j]=consume[u]+cost[u][j];
+				}else if(dis[j]==dis[u]+e[u][j]){
+					if(consume[j]>consume[u]+cost[u][j]){
+						consume[j]=consume[u]+cost[u][j];
+						pre[j].clear();
+						pre[j].push_back(u);
+					}else if(consume[j]==consume[u]+cost[u][j])
+						pre[j].push_back(u);
 				}
-				else if (weight[v] == weight[u] + dis[u][v]) {
-					pre[v].push_back(u);
-				}
-			}
-		}
 	}
 	dfs(d);
-	for (int i = path.size() - 1; i >= 0; i--)
-		cout << path[i] << " ";
-	cout << weight[d] <<" "<< mincost;
+	for(int i=res.size()-1;i>=0;--i)cout<<res[i]<<" ";
+	cout<<dis[d]<<" "<<consume[d];
 	return 0;
 }

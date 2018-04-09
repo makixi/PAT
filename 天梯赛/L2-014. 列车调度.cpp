@@ -11,8 +11,7 @@ int main(){
 	s.insert(0);
 	for(int i=0;i<n;++i){
 		cin>>tmp;
-		if(tmp<*s.rbegin())
-			s.erase(*(s.upper_bound(tmp)));
+		if(tmp<*s.rbegin())s.erase(*(s.upper_bound(tmp)));
 		s.insert(tmp);
 	}
 	cout<<s.size()-1;

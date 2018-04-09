@@ -10,19 +10,14 @@ struct node {
 	double x, y;
 }p[maxn],q[maxn],all[maxn];
 int n, per[maxn], l;
-node getmag(node a, node b) {
-	node s;
-	s.x = b.x - a.x; s.y = b.y - a.y;
-	return s;
-}
-double multiX(node a, node b) {
-	return a.x*b.y - b.x*a.y;
+double multiX(node a, node b,node c) {
+	return (b.y - a.y)*(c.x - a.x) - (b.x - a.x)*(c.y - a.y);
 }
 int dis(node a, node b) {
 	return (a.x - b.x)*(a.x - b.x) + (a.y - b.y)*(a.y - b.y);
 }
 bool cmp(int u, int v) {
-	int det = multiX(getmag(p[1], p[u]), getmag(p[1], p[v]));
+	int det = multiX(p[1], p[u], p[v]);
 	if (det != 0)return det>0;
 	return dis(p[1], p[u])<dis(p[1], p[v]);
 }
@@ -36,8 +31,7 @@ void graham() {
 	q[++l] = p[1];
 	for (int i = 2; i <= n; i++) {
 		int j = per[i];
-		while (l >= 2 && multiX(getmag(q[l - 1], p[j]), getmag(q[l - 1], q[l])) >= 0)
-			l--;
+		while (l >= 2 && multiX(q[l - 1], q[l],p[j]) <= 0)l--;
 		q[++l] = p[j];
 	}
 }
@@ -45,7 +39,7 @@ double area() {
 	int ans = 0;
 	q[0].x = 0; q[0].y = 0;
 	for (int i = 1; i <= l; i++) 
-		ans += multiX(getmag(q[0], q[i]), getmag(q[0], q[i%l + 1]));
+		ans += multiX(q[0], q[i], q[i%l + 1]);
 	return abs(ans) / 2;
 }
 int main() {
@@ -60,8 +54,7 @@ int main() {
 	do {
 		l = 0;
 		for (int i = 1, cnt = 1; i <= N; ++i) 
-			if (choose[i])
-				p[cnt++] = all[i];
+			if (choose[i])p[cnt++] = all[i];
 		graham();
 		double ans = area() / 50;
 		if (ans - res > 0) {

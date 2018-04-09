@@ -14,14 +14,11 @@ int main() {
 	int n,e,tmp,i;
 	cin >> n;
 	vector<node> v(n);
-	for (int i = 0; i < n; ++i) 
-		cin >> v[i].val;
+	for (int i = 0; i < n; ++i) cin >> v[i].val;
 	sort(v.begin(), v.end(), cmp);
-	for (i = 0; i < n; ++i) 
-		v[i].rank = i + 1;
+	for (i = 0; i < n; ++i) v[i].rank = i + 1;
 	int vi = 0;
-	while (vi<n&&v[vi].val>v[vi].rank)
-		vi++;
+	while (vi<n&&v[vi].val>v[vi].rank)vi++;
 	cout << vi;
 	return 0;
 }

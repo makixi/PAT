@@ -8,10 +8,8 @@ int n;
 void findPivot(int low,int high){
 	int maxn=0;
 	for(int mid=low;mid<=high;++mid){
-		if(a[mid]==b[mid]&&b>maxn)
-			res.push_back(b[mid]);
-		if(b[mid]>maxn)
-			maxn=b[mid];
+		if(a[mid]==b[mid]&&b>maxn)res.push_back(b[mid]);
+		if(b[mid]>maxn)maxn=b[mid];
 	}
 }
 int main() {

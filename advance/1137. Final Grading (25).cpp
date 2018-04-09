@@ -38,11 +38,9 @@ int main(){
 	}
 	for(int i=0;i<n;i++){
 		scanf("%s %d",tid,&ts);
-		if(mp[tid]!=0){
-			if(ts>nods[mp[tid]].fin){
+		if(mp[tid]!=0)
+			if(ts>nods[mp[tid]].fin)
 				nods[mp[tid]].fin=ts;
-			}
-		}
 	}
 	for(int i=1;i<cnt;i++){
 		if(nods[i].fin>=nods[i].mid)nods[i].g=nods[i].fin;
@@ -58,6 +56,5 @@ int main(){
 		if(nods[i].g==-1) break;
 		printf("%s %d %d %d %d\n",nods[i].id.c_str(),nods[i].poins,nods[i].mid,nods[i].fin,nods[i].g);
 	}
-	
 	return 0;
 }

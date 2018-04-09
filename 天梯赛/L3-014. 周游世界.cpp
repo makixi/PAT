@@ -1,85 +1,93 @@
-#include<iostream>
-#include<cmath>
-#include<vector>
-#include<algorithm>
+#include<bits/stdc++.h>
 using namespace std;
-const int inf = 0x3f3f3f3f;
-const int maxn = 10001;
-int line[maxn][maxn];
-vector<int> v[maxn],tmppath,path;
+typedef long long ll;
+#define lowbit(i) ((i)&(-i))
+#define mp(i,j) make_pair(i,j)
+const int maxn=10005;
+const int inf=0x3f3f3f3f;
+int n,s,t;
+int line[maxn][maxn],huan=inf;
+vector<int> e[maxn],tmp,res;
 bool vis[maxn];
-int minchange,minstop;
-int st, des;
-void printpath() {
-	if (!path.size()) {
-		printf("Sorry, no line is available.\n");
-		return;
+int gethuan(){
+	int ans=0;
+	int pre=line[tmp[0]][tmp[1]];	
+	for(int i=1;i<tmp.size();++i){
+		if(pre!=line[tmp[i-1]][tmp[i]])
+			++ans; 
+		pre=line[tmp[i-1]][tmp[i]];
 	}
-	printf("%d\n", minstop);
-	int prestop=0, preline = line[path[0]][path[1]];
-	for (int i = 1; i < path.size(); ++i) {
-		int tmpline = line[path[i - 1]][path[i]];
-		if (tmpline != preline) {
-			printf("Go by the line of company #%d from %04d to %04d.\n", preline, path[prestop], path[i-1]);
-			prestop = i - 1;
-			preline = tmpline;
-		}
-	}
-	printf("Go by the line of company #%d from %04d to %04d.\n", preline, path[prestop], path[path.size() - 1]);
+	return ans;
 }
-int getchange(vector<int> path) {
-	int pre=0,res=0;
-	for (int i = 1; i < path.size(); ++i) 
-		if (line[path[i]][path[i - 1]] != pre) {
-			pre = line[path[i]][path[i - 1]];
-			res++;
-		}
-	return res;
-}
-void dfs(int u,int stopnum) {
-	if (u == des) {
-		int changenum = getchange(tmppath);
-		if (stopnum < minstop||(stopnum==minstop&&minchange>changenum)) {
-			minstop = stopnum;
-			path = tmppath;
-			minchange = changenum;
-		}
-		return;
-	}
-	for (int i = 0; i < v[u].size(); ++i) 
-		if (!vis[v[u][i]]) {
-			vis[v[u][i]] = true;
-			tmppath.push_back(v[u][i]);
-			dfs(v[u][i], stopnum + 1);
-			tmppath.pop_back();
-			vis[v[u][i]] = false;
-		}
-}
-int main() {
-	int n, k, pre, tmp;
-	cin >> n;
-	for (int i = 1; i <= n; ++i) {
-		cin >> k >> pre;
-		for (int j = 0; j < k - 1; ++j) {
-			cin >> tmp;
-			line[pre][tmp] = line[tmp][pre] = i;
-			v[tmp].push_back(pre);
-			v[pre].push_back(tmp);
-			pre = tmp;
+void getpath(){
+	int preline=line[res[0]][res[1]],st=res[0];
+	for(int i=2;i<res.size();++i){
+		int currline=line[res[i-1]][res[i]];
+		if(currline==preline){
+			continue;
+		}else{
+			printf("Go by the line of company #%d from %04d to %04d.\n",preline,st,res[i-1]);
+			st=res[i-1];
+			preline=currline;
 		}
 	}
-	cin >> k;
-	while (k--) {
-		cin >> st >> des;
-		vis[st] = true;
-		tmppath.push_back(st);
-		minchange = inf;
-		minstop = inf;
-		dfs(st,0);
-		printpath();
-		fill(vis, vis + maxn, false);
-		tmppath.clear();
-		path.clear();
+	printf("Go by the line of company #%d from %04d to %04d.\n",preline,st,res[res.size()-1]);
+}
+void dfs(int u){
+	tmp.push_back(u);
+	if(u==t){
+		int tmph=gethuan();
+		if(tmp.size()<res.size()||res.size()==0){
+			res=tmp;
+			huan=tmph;
+		}else if(tmp.size()==res.size()&&tmph<huan){
+			huan=tmph;
+			res=tmp;
+		}
+		tmp.pop_back();
+		return;	
+	}
+	for(int i=0;i<e[u].size();++i){
+		int v=e[u][i];
+		if(!vis[v]){
+			vis[v]=true;
+			dfs(v);
+			vis[v]=false;
+		}
+	}
+	tmp.pop_back();
+}
+int main(){
+	//ios::sync_with_stdio(false);
+	cin>>n;
+	for(int i=1;i<=n;++i){
+		int m,pre;
+		cin>>m;
+		if(m)cin>>pre;
+		for(int j=1;j<m;++j){
+			int tmp;
+			cin>>tmp;
+			e[tmp].push_back(pre);
+			e[pre].push_back(tmp);
+			line[tmp][pre]=line[pre][tmp]=i;
+			pre=tmp;
+		}
+	}
+	int k;
+	cin>>k;
+	while(k--){
+		cin>>s>>t;
+		memset(vis,false,sizeof(vis));
+		vis[s]=true;
+		huan=inf;
+		res.clear();
+		dfs(s);
+		if(huan!=inf)cout<<res.size()-1<<endl;
+		else{
+			cout<<"Sorry, no line is available.\n";
+			continue;
+		}
+		getpath();
 	}
 	return 0;
 }

@@ -35,13 +35,9 @@ int main(){
 			v.push_back(node(b,0,0));
 		}
 		v[getid[b]-1].num++;
-		if(a[0]=='A'){
-			v[getid[b]-1].score+=c;
-		}else if(a[0]=='B'){
-			v[getid[b]-1].score+=c*1.0/1.5;
-		}else{
-			v[getid[b]-1].score+=c*1.5;
-		}
+		if(a[0]=='A')v[getid[b]-1].score+=c;
+		else if(a[0]=='B')v[getid[b]-1].score+=c*1.0/1.5;
+		else v[getid[b]-1].score+=c*1.5;	
 	}
 	sort(v.begin(),v.end());
 	cout<<v.size()<<endl;

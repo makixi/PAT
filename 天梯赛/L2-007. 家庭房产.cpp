@@ -1,85 +1,96 @@
 #include<iostream>
+#include<cstring>
 #include<vector>
+#include<string>
+#include<cstring>
+#include<queue>
+#include<set>
+#include<map>
+#include<cmath>
+#include<cstdio>
 #include<algorithm>
 using namespace std;
-const int maxn = 10000;
-int father[maxn];
-bool vis[maxn];
-struct person {
-	int id;
-	int fid;
-	int mid;
-	vector<int> kid;
+#define lowbit(i) ((i)&(-i))
+typedef long long ll;
+const int maxn=10100;
+const int inf=0x3f3f3f3f;
+bool exist[maxn];
+struct person{
+	int id,fid,mid;
+	vector<int> child;
 	int num;
 	int area;
-}p[1010];
-struct family {
+}p[maxn];
+struct family{
 	int id;
-	double num=0;
-	double area=0;
-	int people=0;
-	bool flag = false;
+	double num;
+	double area;
+	int peo;
+	bool operator < (const family &ff)const{
+		if (area != ff.area)return area > ff.area;
+		return id < ff.id;
+	}
 }f[maxn];
-int findfather(int i) {
-	while (i != father[i])i = father[i];
-	return i;
-}
-void unite(int a, int b) {
-	int x = findfather(a);
-	int y = findfather(b);
-	if (x < y)
-		father[y] = x;
-	else if (x > y)
-		father[x] = y;
-}
-bool cmp(family a, family b) {
-	if (a.area != b.area)
-		return a.area > b.area;
-	return a.id < b.id;
-}
-int main() {
-	int n, k, cnt = 0;
-	cin >> n;
-	for (int i = 0; i < maxn; ++i)
-		father[i] = i;
-	for (int i = 0; i < n; ++i) {
-		cin >> p[i].id >> p[i].fid >> p[i].mid >> k;
-		vis[p[i].id] = true;
-		if (p[i].fid != -1) {
-			vis[p[i].fid] = true;
-			unite(p[i].id, p[i].fid);
-		}
-		if (p[i].mid != -1) {
-			vis[p[i].mid] = true;
-			unite(p[i].id, p[i].mid);
-		}
-		p[i].kid.resize(k);
-		for (int j = 0; j < k; ++j) {
-			cin >> p[i].kid[j];
-			vis[p[i].kid[j]] = true;
-			unite(p[i].kid[j], p[i].id);
-		}
-		cin >> p[i].num >> p[i].area;
+int fa[maxn];
+int find(int x){
+	int a=x;
+	while(x!=fa[x])x=fa[x];
+	while(a!=fa[a]){
+		int tmp=a;
+		a=fa[a];
+		fa[tmp]=x;
 	}
-	for (int i = 0; i < n; ++i) {
-		int id = findfather(p[i].id);
-		f[id].id = id;
-		f[id].num += p[i].num;
-		f[id].area += p[i].area;
-		f[id].flag = true;
+	return x;
+}
+void unite(int a,int b){
+	a=find(a),b=find(b);
+	if(a<=b)fa[b]=a;
+	else fa[a]=b;
+}
+int n;
+int main(){
+	//ios::sync_with_stdio(false);
+	cin>>n;
+	for(int i=0;i<=10000;++i)fa[i]=i;
+	for(int i=0;i<n;++i){
+		int id,fid,mid,k;
+		cin>>p[i].id>>p[i].fid>>p[i].mid>>k;
+		exist[p[i].id]=true;
+		if(p[i].fid!=-1){
+			exist[p[i].fid]=true;
+			unite(p[i].id,p[i].fid);
+		}
+		if(p[i].mid!=-1){
+			exist[p[i].mid]=true;
+			unite(p[i].id,p[i].mid);
+		}
+		while(k--){
+			int child;
+			cin>>child;
+			p[i].child.push_back(child);
+			unite(p[i].id,child);
+			exist[child]=true;
+		}
+		cin>>p[i].num>>p[i].area;
 	}
+	for(int i=0;i<n;++i){
+		int id=find(p[i].id);
+		f[id].id=id;
+		f[id].num+=p[i].num;
+		f[id].area+=p[i].area;
+	}
+	for(int i=0;i<maxn;++i)
+		if(exist[i])f[find(i)].peo++;
+	int cnt=0;
 	for (int i = 0; i < maxn; ++i)
-		if (vis[i])
-			f[findfather(i)].people++;
-	for (int i = 0; i < maxn; ++i)
-		if (f[i].flag) {
-			f[i].num /= f[i].people;
-			f[i].area /= f[i].people;
+		if (f[i].num) {
+			f[i].num /= f[i].peo;
+			f[i].area /= f[i].peo;
 			cnt++;
 		}
-	sort(f, f + maxn, cmp);
-	cout << cnt << endl;
+	cout<<cnt<<endl;
+	sort(f,f+maxn);
 	for (int i = 0; i < cnt; ++i)
-		printf("%04d %d %.3lf %.3lf\n", f[i].id, f[i].people, f[i].num, f[i].area);
+		printf("%04d %d %.3lf %.3lf\n", f[i].id, f[i].peo, f[i].num, f[i].area);
 	return 0;
 }

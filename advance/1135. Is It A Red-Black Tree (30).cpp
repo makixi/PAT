@@ -55,8 +55,7 @@ int main(){
 			cin>>tmp;
 			root=insert(root,tmp);
 		}
-		if(root->color==RED)
-			res=1;
+		if(root->color==RED)res=1;
 		if(!res){
 			num=-1;
 			path(-1,root,0);

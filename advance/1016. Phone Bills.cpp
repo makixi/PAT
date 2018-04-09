@@ -5,14 +5,12 @@
 #include<map>
 using namespace std;
 int EveryCost[25]={0};
-
 struct call {
 	string name;
 	int month, day, hour, minute;
 	int now;//on-lineΪ1  
 	int alltime;
 };
-
 bool cmp(call a, call b) {
 	return a.name != b.name ? a.name < b.name : a.alltime < b.alltime;
 }
@@ -24,11 +22,10 @@ double billFromZero(call call1, int *rate) {
 }
 int main() {
 	int n;
-	for (int i = 0; i < 24; ++i)
-		{
-			cin >> EveryCost[i];
-			EveryCost[24]+=EveryCost[i]; 
-		} 
+	for (int i = 0; i < 24; ++i){
+		cin >> EveryCost[i];
+		EveryCost[24]+=EveryCost[i]; 
+	} 
 	cin >> n;
 	vector<call> data(n);
 	for (int i = 0; i < n; ++i) {
@@ -41,12 +38,11 @@ int main() {
 	}
 	sort(data.begin(), data.end(), cmp);
 	map<string, vector<call> > custom;
-	for (int i = 1; i < n; ++i) {
+	for (int i = 1; i < n; ++i) 
 		if (data[i].name == data[i - 1].name && data[i - 1].now == 1 && data[i].now == 0) {
 			custom[data[i - 1].name].push_back(data[i - 1]);
 			custom[data[i].name].push_back(data[i]);
 		}
-	}
 	for (auto it : custom) {
 		vector<call> temp = it.second;
 		cout << it.first;

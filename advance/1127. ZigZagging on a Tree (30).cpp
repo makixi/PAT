@@ -50,3 +50,40 @@ int main(){
 				cout<<" "<<res[i][j];
 	return 0;
 }
+//-=--------------------------------
+#include<iostream>
+#include<string>
+#include<vector>
+#include<map>
+#include<algorithm>
+using namespace std;
+const int maxn=500+10;
+vector<int> in,post,level(1000000,-1);
+void findlevel(int l,int r,int root,int index){
+	if(r<l)return;
+	level[index]=post[root];
+	int i=l;
+	while(i<=r&&in[i]!=post[root])++i;
+	findlevel(l,i-1,root-r+i-1,index*2+1);
+	findlevel(i+1,r,root-1,index*2+2);
+}
+int main(){
+    int n;
+    cin>>n;
+    in.resize(n);post.resize(n);
+    for(int i=0;i<n;++i)cin>>in[i];
+    for(int i=0;i<n;++i)cin>>post[i];
+    findlevel(0,n-1,n-1,0);
+    cout<<level[0];
+    for(int i=1,dep=1;i<1000000;++dep){
+    	if(dep%2){
+    		for(int j=i;j<=i*2&&j<1000000;++j)
+    			if(level[j]!=-1)cout<<" "<<level[j];
+		}else{
+			for(int j=min(999999,i*2);j>=i;--j)
+				if(level[j]!=-1)cout<<" "<<level[j];
+		}
+		i=i*2+1;
+	}
+    return 0;
+} 

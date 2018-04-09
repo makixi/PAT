@@ -1,53 +1,55 @@
-#include<iostream>
-#include<queue>
-#include<algorithm>
+#include<bits/stdc++.h>
 using namespace std;
+typedef long long ll;
+#define lowbit(i) ((i)&(-i))
+#define mp(i,j) make_pair(i,j)
+const int maxn=10005;
+const int inf=0x3f3f3f3f;
+int n;
 struct node{
-	int val;
 	node *lchild,*rchild;
-	node(){
-		lchild=NULL;
-		rchild=NULL;
-	}
+	int val;
+	node(){lchild=rchild=NULL;}
 };
-int height(node *root){
+int getheight(node *root){
 	if(root==NULL)return 0;
-	return max(height(root->lchild),height(root->rchild))+1;
-}
-node *rotateRight(node *root){
-	node *tmp=root->lchild;
-	root->lchild=tmp->rchild;
-	tmp->rchild=root;
-	return tmp;
+	return max(getheight(root->lchild),getheight(root->rchild))+1;
 }
 node *rotateLeft(node *root){
-	node *tmp=root->rchild;
-	root->rchild=tmp->lchild;
-	tmp->lchild=root;
-	return tmp;
+	node *t=root->rchild;
+	root->rchild=t->lchild;
+	t->lchild=root;
+	return t;
 }
-node *rotateRightLeft(node *root){
-	root->rchild=rotateRight(root->rchild);
-	return rotateLeft(root);
+node *rotateRight(node *root){
+	node *t=root->lchild;
+	root->lchild=t->rchild;
+	t->rchild=root;
+	return t;
 }
 node *rotateLeftRight(node *root){
 	root->lchild=rotateLeft(root->lchild);
 	return rotateRight(root);
 }
-node *build(node *root,int val){
+node *rotateRightLeft(node *root){
+	root->rchild=rotateRight(root->rchild);
+	return rotateLeft(root);
+}
+node* insert(node *root,int val){
 	if(root==NULL){
 		root=new node();
 		root->val=val;
 	}else if(root->val>val){
-		root->lchild=build(root->lchild,val);
-		if(height(root->lchild)-height(root->rchild)>=2)
+		root->lchild=insert(root->lchild,val);
+		if(getheight(root->lchild)-getheight(root->rchild)>=2)
 			if(val<root->lchild->val)	
 				root=rotateRight(root);
 			else 
 				root=rotateLeftRight(root);
+			
 	}else{
-		root->rchild=build(root->rchild,val);
-		if(height(root->rchild)-height(root->lchild)>=2)
+		root->rchild=insert(root->rchild,val);
+		if(getheight(root->rchild)-getheight(root->lchild)>=2)
 			if(val>root->rchild->val)	
 				root=rotateLeft(root);
 			else 
@@ -56,36 +58,32 @@ node *build(node *root,int val){
 	return root;
 }
 int main(){
-	int n,val,cnt=0;
-	bool flag=true;
+	ios::sync_with_stdio(false);
 	cin>>n;
 	node *root=NULL;
 	for(int i=0;i<n;++i){
+		int val;
 		cin>>val;
-		root=build(root,val);
+		root=insert(root,val);
 	}
-	queue<node*> q;
+	queue<node *> q;
+	bool flag=true;
+	int cnt=1;
 	q.push(root);
-	node *t;
+	cout<<root->val;
 	while(!q.empty()){
-		t=q.front();q.pop();
-		if(t==NULL)
-			if(cnt==n)
-				break;
-			else{
-				flag=false;
-				continue;
-			}
-		else{
-			if(cnt!=0)cout<<" ";
+		node* u=q.front();q.pop();
+		if(u->val!=root->val)cout<<" "<<u->val;
+		if(u->lchild!=NULL){
+			q.push(u->lchild);
 			cnt++;
-			cout<<t->val;
-		}
-		q.push(t->lchild);
-		q.push(t->rchild);
+		}else if(cnt<n)flag=false;
+		if(u->rchild!=NULL){
+			q.push(u->rchild);
+			++cnt;
+		}else if(cnt<n)flag=false;
 	}
-	cout<<endl;
-	if(flag)cout<<"YES";
-	else cout<<"NO";
+	if(!flag)cout<<endl<<"NO";
+	else cout<<endl<<"YES";
 	return 0;
 }

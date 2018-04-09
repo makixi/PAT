@@ -13,4 +13,5 @@ int main() {
 		x *= 10;
 	}
 	cout << cnt << endl;
+	return 0;
 }

@@ -23,18 +23,18 @@ int main(){
 			cin>>v[i];
 			vis[v[i]]=true;
 		}
-		if(v[0]!=v[num-1])
-			printf("NO\n");
-		else if(num!=n+1)
-			printf("NO\n");
+		if(v[0]!=v[num-1]) printf("NO\n");
+		else if(num!=n+1) printf("NO\n");
 		else{
 			for(int i=1;i<=n;++i)
 				if(!vis[i]){
-					flag=false;break;
+					flag=false;
+					break;
 				}
 			for(int i=1;i<num;++i)
 				if(!table[v[i]][v[i-1]]){
-					flag=false;break;
+					flag=false;
+					break;
 				}
 			if(flag)printf("YES\n");
 			else printf("NO\n");
